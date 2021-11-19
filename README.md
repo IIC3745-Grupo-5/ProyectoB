@@ -1,24 +1,27 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Commands
 
-Things you may want to cover:
+To run the application, run the following commands (start postgresql first)
 
-* Ruby version
+```rb
+rails db:create
+rails db:migrate
+rails db:seed
+rails server
+```
 
-* System dependencies
+If you want to create empty migrations:
+```rb
+rails g migration MigrationName
+```
 
-* Configuration
+If you want to create a scaffold:
+```rb
+rails g scaffold Resource attribute:type another:type
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+If you want to delete a scaffold:
+```rb
+rails d scaffold Resource attribute:type another:type
+```
