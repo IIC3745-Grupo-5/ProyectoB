@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+
+<% @rooms.each do |room| %>
+  <li><%= link_to "#{room.name}", room %></li>
+<% end %>
+
+<%= link_to 'Back', cinemas_path %>
