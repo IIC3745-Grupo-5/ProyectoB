@@ -1,21 +1,12 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Cinemas</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="1"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<section>
+  <div class="title">
+    <h1>Welcome to DCCinema</h1>
+    <p class="choose-cinema-title">Choose your cinema</p>
+  </div>
+  <div class="cinema-list-container">
     <% @cinemas.each do |cinema| %>
-      <tr>
-        <td><%= cinema.name %></td>
-        <td><%= link_to 'Show', cinema %></td>
-      </tr>
+      <%= link_to cinema.name.to_s, cinema, class: "cinema-btn" %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</section>
+
