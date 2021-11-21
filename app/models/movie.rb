@@ -1,4 +1,4 @@
 class Movie < ApplicationRecord
-  belongs_to :room
+  belongs_to :cinema
   has_many :schedules
 end

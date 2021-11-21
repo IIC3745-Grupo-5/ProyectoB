@@ -12,49 +12,49 @@ room8 = Room.create(name: 'Sala 8', cinema: cinema)
 movie1 = Movie.create(
   title: 'Dune', 
   photo: 'https://pics.filmaffinity.com/Dune-367914309-large.jpg', 
-  room: room1
+  cinema: cinema
 )
 
 movie2 = Movie.create(
   title: 'Dune 3D', 
   photo: 'https://i.pinimg.com/originals/ca/5b/91/ca5b9160371f176a522a110136e2dcc1.jpg', 
-  room: room2
+  cinema: cinema
 )
 
 movie3 = Movie.create(
   title: 'Venom, Let there be Carnage', 
   photo: 'http://oyster.ignimgs.com/wordpress/stg.ign.com/2021/05/VNM2_OnLine_1400x2100_TSR_RD3DDCIMAX_02.jpg', 
-  room: room3
+  cinema: cinema
 )
 
 movie4 = Movie.create(
   title: 'Eternals', 
   photo: 'https://m.media-amazon.com/images/M/MV5BMTExZmVjY2ItYTAzYi00MDdlLWFlOWItNTJhMDRjMzQ5ZGY0XkEyXkFqcGdeQXVyODIyOTEyMzY@._V1_.jpg', 
-  room: room4
+  cinema: cinema
 )
 
 movie5 = Movie.create(
   title: 'No Time to Die', 
   photo: 'https://pics.filmaffinity.com/Sin_tiempo_para_morir-525355918-large.jpg', 
-  room: room5
+  cinema: cinema
 )
 
 movie6 = Movie.create(
   title: 'Jack in the Box', 
   photo: 'https://m.media-amazon.com/images/M/MV5BZTcwMGFlOGItNDhiNi00YzBmLWE1MzctMmY3MDRmOWY4ODcxXkEyXkFqcGdeQXVyMDA4NzMyOA@@._V1_FMjpg_UX1000_.jpg', 
-  room: room6
+  cinema: cinema
 )
 
 movie7 = Movie.create(
   title: 'Ghostbusters: Afterlife', 
   photo: 'https://m.media-amazon.com/images/M/MV5BMmZiMjdlN2UtYzdiZS00YjgxLTgyZGMtYzE4ZGU5NTlkNjhhXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg', 
-  room: room7
+  cinema: cinema
 )
 
 movie8 = Movie.create(
   title: 'The French Dispatch', 
   photo: 'https://m.media-amazon.com/images/I/71nWfxOlCTL._AC_SL1398_.jpg', 
-  room: room8
+  cinema: cinema
 )
 
 schedule1_1 = Schedule.create(time: 'Morning', movie: movie1)

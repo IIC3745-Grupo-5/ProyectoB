@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 2021_11_19_215350) do
   create_table "movies", force: :cascade do |t|
     t.string "title"
     t.string "photo"
-    t.bigint "room_id", null: false
+    t.bigint "cinema_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["room_id"], name: "index_movies_on_room_id"
+    t.index ["cinema_id"], name: "index_movies_on_cinema_id"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2021_11_19_215350) do
     t.index ["movie_id"], name: "index_schedules_on_movie_id"
   end
 
-  add_foreign_key "movies", "rooms"
+  add_foreign_key "movies", "cinemas"
   add_foreign_key "reservations", "rooms"
   add_foreign_key "rooms", "cinemas"
   add_foreign_key "schedules", "movies"
