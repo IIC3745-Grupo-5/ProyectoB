@@ -6,7 +6,7 @@
     <div class="movie">
       <img src=<%= movie.photo %> class="movie-image">
       <div class="movie-title-container">
-        <%= link_to "#{movie.title}", movie, class: "movie-title" %>
+        <%= link_to movie.title.to_s, movie, class: "movie-title" %>
       </div>
     </div>
   <% end %>
