@@ -1,19 +1,26 @@
-<p id="notice"><%= notice %></p>
+<%= link_to 'Back', @cinema, class: "back-btn" %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @movie.title %>
-</p>
-
-<p>
-  <strong>Photo:</strong>
-  <%= @movie.photo %>
-</p>
-
-<p>
-  <strong>Room:</strong>
-  <%= @movie.room_id %>
-</p>
-
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
+<div class="single-movie-display">
+  <img src=<%= @movie.photo %> class="single-image">
+  <p class="single-movie-title"><%= @movie.title %></p>
+  <div class="schedules-container">
+    <div class="schedule">
+      <p class="inside-text text-one">Morning:</p>
+      <% @morning_schedule.rooms.each do |room| %>
+        <%= link_to room.name.to_s, room, class: "inside-text text-two" %>
+      <% end %>
+    </div>
+    <div class="schedule">
+      <p class="inside-text text-one">Afternoon:</p>
+      <% @afternoon_schedule.rooms.each do |room| %>
+        <%= link_to room.name.to_s, room, class: "inside-text text-two" %>
+      <% end %>
+    </div>
+    <div class="schedule">
+      <p class="inside-text text-one">Evening:</p>
+      <% @evening_schedule.rooms.each do |room| %>
+        <%= link_to room.name.to_s, room, class: "inside-text text-two" %>
+      <% end %>
+    </div>
+  </div>
+</div>

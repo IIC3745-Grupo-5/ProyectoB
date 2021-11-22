@@ -11,7 +11,7 @@ room8 = Room.create(name: 'Sala 8', cinema: cinema)
 
 movie1 = Movie.create(
   title: 'Dune', 
-  photo: 'https://pics.filmaffinity.com/Dune-367914309-large.jpg', 
+  photo: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2021/08/dune-2433609.jpg?itok=cCnYTrFm', 
   cinema: cinema
 )
 
@@ -35,7 +35,7 @@ movie4 = Movie.create(
 
 movie5 = Movie.create(
   title: 'No Time to Die', 
-  photo: 'https://pics.filmaffinity.com/Sin_tiempo_para_morir-525355918-large.jpg', 
+  photo: 'https://cdn.europosters.eu/image/1300/posters/james-bond-no-time-to-die-tuxedo-i112428.jpg', 
   cinema: cinema
 )
 
