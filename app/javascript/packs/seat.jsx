@@ -8,7 +8,7 @@ const Seat = ({ name, isOccupied }) => {
   };
 
   return (
-    <div className={occupied ? "taken-seat" : "empty-seat"} onClick={handleClick}>
+    <div className={`grid-item ${occupied ? "taken" : "empty"}`} onClick={handleClick}>
       <p>{name}</p>
     </div>
   );

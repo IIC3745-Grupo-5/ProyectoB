@@ -1,3 +1,77 @@
 // Place all the styles related to the Rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.room-seats-title {
+  text-align: center;
+}
+
+.seats-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 70vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  border: 2px solid goldenrod;
+  box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.74);
+  .upper-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    width: 100%;
+    p {
+      text-align: center;
+    }
+    .left-corridor {
+      flex: 0.5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      border: 1px solid goldenrod;
+    }
+    .seats-section {
+      flex: 6;
+      height: 98%;
+      display: grid;
+      grid-template-columns: repeat(12, auto);
+      grid-row-gap: 3rem;
+      .grid-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid brown;
+      }
+      .taken {
+        background-color: rgb(212, 59, 59);
+      }
+      .empty {
+        background-color: rgb(184, 182, 182);
+      }
+    }
+    .right-corridor {
+      flex: 0.5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      border: 1px solid goldenrod;
+    }
+  }
+  .screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    width: 100%;
+    border: 2px solid goldenrod;
+  }
+}

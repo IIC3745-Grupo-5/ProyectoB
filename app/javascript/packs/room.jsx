@@ -15,13 +15,25 @@ const Room = (props) => {
   }, []);
 
   return (
-    <div className="seats-container">
-      <h1>Seats for {roomName}</h1>
-      <div className="left-corridor"></div>
-      {seats.map((row) => row.map((seat) => <Seat name={seat} isOccupied={false} />))}
-      <div className="right-corridor"></div>
-      <div className="screen"></div>
-    </div>
+    <>
+      <h1 className="room-seats-title">Seats for {roomName}</h1>
+      <div className="seats-container">
+        <div className="upper-container">
+          <div className="left-corridor">
+            <p>LEFT AISLE</p>
+          </div>
+          <div className="seats-section">
+            {seats.map((row) => row.map((seat) => <Seat name={seat} isOccupied={false} />))}
+          </div>
+          <div className="right-corridor">
+            <p>RIGTH AISLE</p>
+          </div>
+        </div>
+        <div className="screen">
+          <p>SCREEN</p>
+        </div>
+      </div>
+    </>
   );
 };
 
