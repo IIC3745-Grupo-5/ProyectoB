@@ -45,7 +45,7 @@ const Room = (props) => {
             {seats.map((row, l_index) => row.map((seat, n_index) => <Seat key={seat} name={seat} isOccupied={seatStatus[l_index][n_index]} selectSeat={selectSeat} />))}
           </div>
           <div className="right-corridor">
-            <p>RIGTH AISLE</p>
+            <p>RIGHT AISLE</p>
           </div>
         </div>
         <div className="screen">
