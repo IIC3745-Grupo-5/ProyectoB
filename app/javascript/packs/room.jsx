@@ -1,14 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Seat from './seat';
-
-const rows = ['A', 'B', 'C', 'D'];
-const columns = [1, 2, 3, 4, 5, 6, 7, 8, 9,  10, 11, 12];
-const seats = rows.map((row) => columns.map((column) => `${row}${column}`));
+import { rows, columns, seats, initialSeatState } from '../constants';
 
 
 const Room = (props) => {
   const { roomName } = props;
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [seatStatus, setSeatStatus] = useState(initialSeatState);
+
+  const selectSeat = (room, letter, number) => {
+    if (selectedSeats.length && !selectedSeats[0].includes(letter)) {
+      setSeatStatus(initialSeatState);
+      setSelectedSeats([]);
+    } else {
+      const letterIndex = rows.indexOf(letter);
+      const numberIndex = columns.indexOf(number);
+      setSeatStatus((prevState) => {
+        const stateCopy = prevState.map((row) => row.slice());
+        stateCopy[letterIndex][numberIndex] = !selectedSeats.includes(room);
+        return stateCopy;
+      });
+      if (selectedSeats.includes(room)) {
+        setSelectedSeats((prevState) => prevState.filter((elem) => elem !== room));
+      } else {
+        setSelectedSeats((prevState) => [...prevState, room]);
+      }
+    };
+  };
 
   useEffect(() => {
     // Get all reservations and check which are occupied
@@ -23,7 +42,7 @@ const Room = (props) => {
             <p>LEFT AISLE</p>
           </div>
           <div className="seats-section">
-            {seats.map((row) => row.map((seat) => <Seat name={seat} isOccupied={false} />))}
+            {seats.map((row, l_index) => row.map((seat, n_index) => <Seat key={seat} name={seat} isOccupied={seatStatus[l_index][n_index]} selectSeat={selectSeat} />))}
           </div>
           <div className="right-corridor">
             <p>RIGTH AISLE</p>
