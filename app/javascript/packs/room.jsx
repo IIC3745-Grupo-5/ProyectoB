@@ -5,7 +5,10 @@ import { rows, columns, seats, initialSeatState } from '../constants';
 
 
 const Room = (props) => {
-  const { roomName } = props;
+  let { roomData, prevReservations } = props;
+  prevReservations = JSON.parse(prevReservations);
+  roomData = JSON.parse(roomData);
+  const roomName = roomData.name;
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [seatStatus, setSeatStatus] = useState(initialSeatState);
 
@@ -33,8 +36,15 @@ const Room = (props) => {
     // Get all reservations and check which are occupied
   }, []);
 
+  const makeReservation = async () => {
+    await fetch("http://localhost:3000/reservations/", { 
+      method: "post",
+      body: JSON.stringify(selectedSeats)
+    })
+  }
+
   return (
-    <>
+    <div className="room-hero">
       <h1 className="room-seats-title">Seats for {roomName}</h1>
       <div className="seats-container">
         <div className="upper-container">
@@ -52,14 +62,19 @@ const Room = (props) => {
           <p>SCREEN</p>
         </div>
       </div>
-    </>
+      <button className="reserve-btn" onClick={makeReservation}>
+        Make reservation
+      </button>
+    </div>
   );
 };
 
-
 document.addEventListener('DOMContentLoaded', () => {
+  const node = document.getElementById('room_data')
+  const data = node.getAttribute('data')
+  const prevReservations = node.getAttribute('reservations')
   ReactDOM.render(
-    <Room />,
+    <Room roomData={data} prevReservations={prevReservations} />,
     document.body.appendChild(document.createElement('div')),
   )
 });
