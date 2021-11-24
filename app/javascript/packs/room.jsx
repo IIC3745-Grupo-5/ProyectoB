@@ -8,6 +8,7 @@ const Room = (props) => {
   let { roomData, prevReservations } = props;
   prevReservations = JSON.parse(prevReservations);
   roomData = JSON.parse(roomData);
+  console.log(prevReservations)
   const roomName = roomData.name;
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [seatStatus, setSeatStatus] = useState(initialSeatState);
@@ -47,7 +48,6 @@ const Room = (props) => {
     })
       .then((response) => response.json())
       .then((data) => window.location.href = data.redirect_url)
-
   }
 
   return (

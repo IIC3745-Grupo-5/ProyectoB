@@ -22,14 +22,10 @@ class ReservationsController < ApplicationController
 
   # POST /reservations or /reservations.json
   def create
-    puts request.raw_post
     body = JSON.parse request.raw_post
     seats = body['seats']
     roomId = body['room']['id']
     room = Room.find(roomId)
-    puts seats
-    puts room
-    puts room.cinema
     @reservation = Reservation.create(seats: seats, room: room) # pass room
     @reservation.save
     payload = {
