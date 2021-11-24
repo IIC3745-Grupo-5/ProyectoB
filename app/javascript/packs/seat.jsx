@@ -7,6 +7,8 @@ const Seat = ({ name, isOccupied, selectSeat }) => {
 
   const handleClick = () => {
     // !isOccupied && setOccupied(!occupied);
+
+    // Agregar prop nuevo a isOcuppied, si es que asiento ya estaba seleccionado entonces no hacer el selectSeat
     selectSeat(name, letter, number);
   };
 

@@ -36,11 +36,18 @@ const Room = (props) => {
     // Get all reservations and check which are occupied
   }, []);
 
-  const makeReservation = async () => {
-    await fetch("http://localhost:3000/reservations/", { 
+  const makeReservation = () => {
+    const data = {
+      seats: selectedSeats,
+      room: roomData
+    }
+    fetch("http://localhost:3000/reservations/", { 
       method: "post",
-      body: JSON.stringify(selectedSeats)
+      body: JSON.stringify(data)
     })
+      .then((response) => response.json())
+      .then((data) => window.location.href = data.redirect_url)
+
   }
 
   return (
