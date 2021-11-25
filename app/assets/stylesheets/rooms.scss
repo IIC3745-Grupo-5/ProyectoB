@@ -7,16 +7,15 @@
 }
 
 .seats-container {
-  position: absolute;
+  position: block;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 60vw;
   height: 70vh;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
+  align-self: center;
+  margin: 1rem;
   border: 2px solid goldenrod;
   box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.74);
   .upper-container {
@@ -74,4 +73,25 @@
     width: 100%;
     border: 2px solid goldenrod;
   }
+}
+
+.reserve-btn {
+  background-color: goldenrod;
+  width: 20%;
+  align-self: center;
+  margin: 2rem;
+  padding: 1rem;
+  color: white;
+  border-style: none;
+  transition: all 0.3s ease;
+  &:hover {
+    opacity: 1;
+    background-color: rgb(165, 125, 23);
+    cursor: pointer;
+  }
+}
+
+.room-hero {
+  display: flex;
+  flex-direction: column;
 }
