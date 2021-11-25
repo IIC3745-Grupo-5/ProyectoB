@@ -8,12 +8,30 @@ const Room = (props) => {
   let { roomData, prevReservations } = props;
   prevReservations = JSON.parse(prevReservations);
   roomData = JSON.parse(roomData);
-  console.log(prevReservations)
   const roomName = roomData.name;
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [seatStatus, setSeatStatus] = useState(initialSeatState);
 
-  const selectSeat = (room, letter, number) => {
+  const reservedSeats = []
+  prevReservations.forEach((reservation) => {
+    reservation.seats.forEach((seat) => reservedSeats.push(seat))
+  })
+
+  const setPrevReserved = () => {
+    reservedSeats.map((seat) => {
+      const letter = seat.replace(/[^a-z]/gi, '');
+      const number = Number(seat.replace( /^\D+/g, ''))
+      const letterIndex = rows.indexOf(letter);
+      const numberIndex = columns.indexOf(number);
+      setSeatStatus((prevState) => {
+        const stateCopy = prevState.map((row) => row.slice());
+        stateCopy[letterIndex][numberIndex] = !selectedSeats.includes(seat);
+        return stateCopy;
+      });
+    })
+  }
+
+  const selectSeat = (seat, letter, number) => {
     if (selectedSeats.length && !selectedSeats[0].includes(letter)) {
       setSeatStatus(initialSeatState);
       setSelectedSeats([]);
@@ -22,19 +40,20 @@ const Room = (props) => {
       const numberIndex = columns.indexOf(number);
       setSeatStatus((prevState) => {
         const stateCopy = prevState.map((row) => row.slice());
-        stateCopy[letterIndex][numberIndex] = !selectedSeats.includes(room);
+        stateCopy[letterIndex][numberIndex] = !selectedSeats.includes(seat);
         return stateCopy;
       });
-      if (selectedSeats.includes(room)) {
-        setSelectedSeats((prevState) => prevState.filter((elem) => elem !== room));
+      if (selectedSeats.includes(seat)) {
+        setSelectedSeats((prevState) => prevState.filter((elem) => elem !== seat));
       } else {
-        setSelectedSeats((prevState) => [...prevState, room]);
+        setSelectedSeats((prevState) => [...prevState, seat]);
       }
     };
   };
 
   useEffect(() => {
     // Get all reservations and check which are occupied
+    setPrevReserved()
   }, []);
 
   const makeReservation = () => {
