@@ -8,6 +8,14 @@ bundle install
 yarn install
 ```
 
+You may need a .env file if the default values for the database configuration do not work (you can look at this values in config/database.yml). Here is an example:
+```rb
+DATABASE_USERNAME=MyUsername
+DATABASE_PASSWORD=MyPassword
+DATABASE_HOST=MyHost
+DATABASE_PORT=MyPort
+```
+
 To run the application, run the following commands (start postgresql first):
 
 ```rb
