@@ -33,15 +33,6 @@ class ReservationsController < ApplicationController
       'status': 201
     }
     render :json => payload, :status => 201
-    # respond_to do |format|
-    #   if @reservation.save
-        # format.html { redirect_to room.cinema, notice: "Reservation was successfully created." }
-      #   format.json { render :show, status: :created, location: room.cinema }
-      # else
-      #   format.html { render :new, status: :unprocessable_entity }
-      #   format.json { render json: @reservation.errors, status: :unprocessable_entity }
-      # end
-    # end
   end
 
   # PATCH/PUT /reservations/1 or /reservations/1.json
