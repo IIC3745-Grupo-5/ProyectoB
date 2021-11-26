@@ -31,9 +31,8 @@ RSpec.describe 'Home page', type: :system do
     it 'clicks the back button and goes to root page' do
       visit cinema_path(1)
       sleep(2) # Wait for 2 seconds so you can see movies load
-      click_link 'Logout'
+      click_link 'Back'
       sleep(1) # Wait for 1 second so you can see page load
-      sign_out_and_redirect(current_user)
       expect(page).to have_current_path(cinemas_path)
     end
   end

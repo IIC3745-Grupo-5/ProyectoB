@@ -4,8 +4,10 @@
     <p class="choose-cinema-title">Choose your cinema</p>
   </div>
   <div class="cinema-list-container">
-    <%= link_to "Login", new_user_session_path, class: "cinema-btn" %>
-    <%= link_to "Register", new_user_registration_path, class: "cinema-btn" %>
+    <% @cinemas.each do |cinema| %>
+      <%= link_to cinema.name.to_s, cinema, class: "cinema-btn" %>
+    <% end %>
   </div>
 </section>
-
+<%= link_to 'Logout', home_index_path, class: "back-btn" %>
+<%# sign_out_and_redirect(current_user) %>
