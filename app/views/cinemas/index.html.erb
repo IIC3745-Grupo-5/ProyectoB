@@ -4,9 +4,8 @@
     <p class="choose-cinema-title">Choose your cinema</p>
   </div>
   <div class="cinema-list-container">
-    <% @cinemas.each do |cinema| %>
-      <%= link_to cinema.name.to_s, cinema, class: "cinema-btn" %>
-    <% end %>
+    <%= link_to "Login", new_user_session_path, class: "cinema-btn" %>
+    <%= link_to "Register", new_user_registration_path, class: "cinema-btn" %>
   </div>
 </section>
 
