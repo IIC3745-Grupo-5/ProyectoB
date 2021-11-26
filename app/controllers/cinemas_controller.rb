@@ -1,5 +1,6 @@
 class CinemasController < ApplicationController
   before_action :set_cinema, only: %i[ show ]
+  before_action :authenticate_user!
 
   def index
     @cinemas = Cinema.all
