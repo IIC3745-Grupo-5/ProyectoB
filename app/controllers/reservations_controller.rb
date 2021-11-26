@@ -25,8 +25,10 @@ class ReservationsController < ApplicationController
     body = JSON.parse request.raw_post
     seats = body['seats']
     roomId = body['room']['id']
+    scheduleId = body['scheduleId']
+    schedule = Schedule.find(scheduleId)
     room = Room.find(roomId)
-    @reservation = Reservation.create(seats: seats, room: room) # pass room
+    @reservation = Reservation.create(seats: seats, room: room, schedule: schedule) # pass room
     @reservation.save
     payload = {
       'redirect_url': "/cinemas/#{room.cinema.id}",

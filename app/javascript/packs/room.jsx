@@ -5,7 +5,7 @@ import { rows, columns, seats, initialSeatState } from '../constants';
 
 
 const Room = (props) => {
-  let { roomData, prevReservations } = props;
+  let { roomData, prevReservations, scheduleId } = props;
   prevReservations = JSON.parse(prevReservations);
   roomData = JSON.parse(roomData);
   const roomName = roomData.name;
@@ -46,7 +46,8 @@ const Room = (props) => {
   const makeReservation = () => {
     const data = {
       seats: selectedSeats,
-      room: roomData
+      room: roomData,
+      scheduleId,
     }
     fetch("http://localhost:3000/reservations/", { 
       method: "post",
@@ -84,10 +85,11 @@ const Room = (props) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.getElementById('room_data')
+  const scheduleId = node.getAttribute('scheduleId')
   const data = node.getAttribute('data')
   const prevReservations = node.getAttribute('reservations')
   ReactDOM.render(
-    <Room roomData={data} prevReservations={prevReservations} />,
+    <Room roomData={data} prevReservations={prevReservations} scheduleId={scheduleId} />,
     document.body.appendChild(document.createElement('div')),
   )
 });

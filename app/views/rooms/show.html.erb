@@ -3,6 +3,7 @@
 <%= javascript_pack_tag 'room' %>
 <%= content_tag :div,
   id: "room_data",
+  scheduleId: @scheduleId,
   reservations: @initialState.to_json,
   data: @room.to_json do %>
 <% end %>
