@@ -13,7 +13,7 @@ const Seat = ({ name, isOccupied, selectSeat }) => {
   };
 
   return (
-    <div className={`grid-item ${isOccupied ? "taken" : "empty"}`} onClick={handleClick}>
+    <div className={`grid-item ${isOccupied}`} onClick={handleClick}>
       <p>{name}</p>
     </div>
   );
