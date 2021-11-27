@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'home/index'
   devise_for :users
   resources :reservations
   resources :schedules
@@ -6,5 +7,5 @@ Rails.application.routes.draw do
   resources :rooms
   resources :cinemas
 
-  root 'cinemas#index'
+  root to: 'home#index'
 end
