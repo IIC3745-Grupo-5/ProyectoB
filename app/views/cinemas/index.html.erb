@@ -1,7 +1,9 @@
+
 <section>
   <div class="title">
-    <h1>Welcome to DCCinema</h1>
+    <h1>Welcome to DCCinema, <%= current_user.email %> </h1>
     <p class="choose-cinema-title">Choose your cinema</p>
+    <% current_user %>
   </div>
   <div class="cinema-list-container">
     <% @cinemas.each do |cinema| %>
@@ -9,4 +11,4 @@
     <% end %>
   </div>
 </section>
-
+<%= link_to 'Logout', destroy_user_session_path, method: :delete,  class: "logout-btn", :style=> 'color:#FFFFFF;' %>

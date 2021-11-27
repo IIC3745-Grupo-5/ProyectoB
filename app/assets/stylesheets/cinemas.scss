@@ -49,3 +49,18 @@ section {
     }
   }
 }
+
+.logout-btn {
+  margin: 1rem;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px;
+  padding: 1rem;
+  width: 50%;
+  background-color: rgb(255, 65, 31);
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.74);
+  &:hover {
+    box-shadow: 5px 5px 15px -8px rgba(0,0,0,0.74);
+  }
+}

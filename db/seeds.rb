@@ -120,3 +120,5 @@ schedule3_7.rooms.push(room3)
 schedule1_8.rooms.push(room2, room5, room7)
 schedule2_8.rooms.push(room3, room4, room5)
 schedule3_8.rooms.push(room1, room6)
+
+User.create(email: 'jdoe@uc.cl', password: 'password', password_confirmation: 'password')

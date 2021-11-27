@@ -1,6 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[ show edit update destroy ]
   skip_before_action :verify_authenticity_token, :only => [:create]
+  before_action :authenticate_user!
 
   # GET /reservations or /reservations.json
   def index
