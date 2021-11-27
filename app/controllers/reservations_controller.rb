@@ -23,19 +23,23 @@ class ReservationsController < ApplicationController
 
   # POST /reservations or /reservations.json
   def create
-    body = JSON.parse request.raw_post
-    seats = body['seats']
-    roomId = body['room']['id']
-    scheduleId = body['scheduleId']
-    schedule = Schedule.find(scheduleId)
-    room = Room.find(roomId)
-    @reservation = Reservation.create(seats: seats, room: room, schedule: schedule) # pass room
-    @reservation.save
-    payload = {
-      'redirect_url': "/cinemas/#{room.cinema.id}",
-      'status': 201
-    }
-    render :json => payload, :status => 201
+    if current_user
+      body = JSON.parse request.raw_post
+      schedule = Schedule.find(body['scheduleId'])
+      room = Room.find(body['room']['id'])
+      @reservation = Reservation.create(seats: body['seats'], room: room, schedule: schedule, user: current_user)
+      @reservation.save
+      payload = {
+        'redirect_url': "/cinemas/#{room.cinema.id}",
+        'status': 201
+      }
+      render :json => payload, :status => 201
+    else
+      payload = {
+        'status': 404
+      }
+      render :json => payload, :status => 404
+    end
   end
 
   # PATCH/PUT /reservations/1 or /reservations/1.json

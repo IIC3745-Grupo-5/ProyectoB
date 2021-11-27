@@ -13,9 +13,8 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1 or /rooms/1.json
   def show
-    @scheduleId = params[:scheduleId]
-    reservations = @room.reservations
-    reservations.select { |reservation| reservation.schedule_id == @scheduleId }
+    @scheduleId = params[:scheduleId].to_i
+    reservations = @room.reservations.select { |reservation| reservation.schedule_id == @scheduleId }
     reservedSeats = Array.new
     reservations.each { |reservation| reservation.seats.each { |seat| reservedSeats.push(seat) } }
     @initialState = Array.new

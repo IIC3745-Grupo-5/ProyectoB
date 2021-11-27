@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Seat from './seat';
-import { rows, columns, seats, initialSeatState } from '../constants';
+import { rows, columns, seats } from '../constants';
 
 
 const Room = (props) => {
@@ -40,21 +40,21 @@ const Room = (props) => {
     };
   };
 
-  useEffect(() => {
-  }, []);
-
   const makeReservation = () => {
-    const data = {
-      seats: selectedSeats,
-      room: roomData,
-      scheduleId,
+    if (selectedSeats.length) {
+      const data = {
+        seats: selectedSeats,
+        room: roomData,
+        scheduleId,
+      };
+      fetch("http://localhost:3000/reservations/", { 
+        method: "post",
+        body: JSON.stringify(data)
+      })
+        .then((response) => response.json())
+        .then((data) => window.location.href = data.redirect_url)
+        .catch((error) => console.log(error))
     }
-    fetch("http://localhost:3000/reservations/", { 
-      method: "post",
-      body: JSON.stringify(data)
-    })
-      .then((response) => response.json())
-      .then((data) => window.location.href = data.redirect_url)
   }
 
   return (

@@ -34,10 +34,12 @@ ActiveRecord::Schema.define(version: 2021_11_25_202732) do
     t.string "seats", default: [], array: true
     t.bigint "room_id", null: false
     t.bigint "schedule_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_reservations_on_room_id"
     t.index ["schedule_id"], name: "index_reservations_on_schedule_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -77,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_11_25_202732) do
   add_foreign_key "movies", "cinemas"
   add_foreign_key "reservations", "rooms"
   add_foreign_key "reservations", "schedules"
+  add_foreign_key "reservations", "users"
   add_foreign_key "rooms", "cinemas"
   add_foreign_key "schedules", "movies"
 end
