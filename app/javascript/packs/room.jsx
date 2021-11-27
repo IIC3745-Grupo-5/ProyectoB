@@ -1,72 +1,60 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Seat from './seat';
-import { rows, columns, seats, initialSeatState } from '../constants';
+import { rows, columns, seats } from '../constants';
 
 
 const Room = (props) => {
-  let { roomData, prevReservations } = props;
+  let { roomData, prevReservations, scheduleId } = props;
   prevReservations = JSON.parse(prevReservations);
   roomData = JSON.parse(roomData);
   const roomName = roomData.name;
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [seatStatus, setSeatStatus] = useState(initialSeatState);
-
-  const reservedSeats = []
-  prevReservations.forEach((reservation) => {
-    reservation.seats.forEach((seat) => reservedSeats.push(seat))
-  })
-
-  const setPrevReserved = () => {
-    reservedSeats.map((seat) => {
-      const letter = seat.replace(/[^a-z]/gi, '');
-      const number = Number(seat.replace( /^\D+/g, ''))
-      const letterIndex = rows.indexOf(letter);
-      const numberIndex = columns.indexOf(number);
-      setSeatStatus((prevState) => {
-        const stateCopy = prevState.map((row) => row.slice());
-        stateCopy[letterIndex][numberIndex] = !selectedSeats.includes(seat);
-        return stateCopy;
-      });
-    })
-  }
+  const [seatStatus, setSeatStatus] = useState(prevReservations);
 
   const selectSeat = (seat, letter, number) => {
     if (selectedSeats.length && !selectedSeats[0].includes(letter)) {
-      setSeatStatus(initialSeatState);
+      setSeatStatus(prevReservations);
       setSelectedSeats([]);
     } else {
       const letterIndex = rows.indexOf(letter);
       const numberIndex = columns.indexOf(number);
       setSeatStatus((prevState) => {
         const stateCopy = prevState.map((row) => row.slice());
-        stateCopy[letterIndex][numberIndex] = !selectedSeats.includes(seat);
+        if (stateCopy[letterIndex][numberIndex] != "taken") {
+          if (!selectedSeats.includes(seat)) {
+            stateCopy[letterIndex][numberIndex] = "toReserve";
+          } else {
+            stateCopy[letterIndex][numberIndex] = "empty";
+          }
+
+          if (selectedSeats.includes(seat) ) {
+            setSelectedSeats((prevState) => prevState.filter((elem) => elem !== seat));
+          } else {
+            setSelectedSeats((prevState) => [...prevState, seat]);
+          }
+        }
+
         return stateCopy;
       });
-      if (selectedSeats.includes(seat)) {
-        setSelectedSeats((prevState) => prevState.filter((elem) => elem !== seat));
-      } else {
-        setSelectedSeats((prevState) => [...prevState, seat]);
-      }
     };
   };
 
-  useEffect(() => {
-    // Get all reservations and check which are occupied
-    setPrevReserved()
-  }, []);
-
   const makeReservation = () => {
-    const data = {
-      seats: selectedSeats,
-      room: roomData
+    if (selectedSeats.length) {
+      const data = {
+        seats: selectedSeats,
+        room: roomData,
+        scheduleId,
+      };
+      fetch("http://localhost:3000/reservations/", { 
+        method: "post",
+        body: JSON.stringify(data)
+      })
+        .then((response) => response.json())
+        .then((data) => window.location.href = data.redirect_url)
+        .catch((error) => console.log(error))
     }
-    fetch("http://localhost:3000/reservations/", { 
-      method: "post",
-      body: JSON.stringify(data)
-    })
-      .then((response) => response.json())
-      .then((data) => window.location.href = data.redirect_url)
   }
 
   return (
@@ -97,10 +85,11 @@ const Room = (props) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.getElementById('room_data')
+  const scheduleId = node.getAttribute('scheduleId')
   const data = node.getAttribute('data')
   const prevReservations = node.getAttribute('reservations')
   ReactDOM.render(
-    <Room roomData={data} prevReservations={prevReservations} />,
+    <Room roomData={data} prevReservations={prevReservations} scheduleId={scheduleId} />,
     document.body.appendChild(document.createElement('div')),
   )
 });

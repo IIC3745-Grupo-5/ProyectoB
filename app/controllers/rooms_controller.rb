@@ -1,3 +1,7 @@
+require_relative 'constants'
+
+include Constants
+
 class RoomsController < ApplicationController
   before_action :set_room, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
@@ -9,7 +13,24 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1 or /rooms/1.json
   def show
-    @reservations = @room.reservations
+    @scheduleId = params[:scheduleId].to_i
+    reservations = @room.reservations.select { |reservation| reservation.schedule_id == @scheduleId }
+    reservedSeats = Array.new
+    reservations.each { |reservation| reservation.seats.each { |seat| reservedSeats.push(seat) } }
+    @initialState = Array.new
+    Constants::ROWS.each do |_row|
+      rowArr = Array.new
+      Constants::COLUMNS.each do |_column|
+        name = _row + _column.to_s
+        if reservedSeats.include?(name)
+          rowArr.push('taken')
+        else
+          rowArr.push('empty')
+        end
+      end
+      @initialState.push(rowArr)
+    end
+    
   end
 
   # GET /rooms/new
