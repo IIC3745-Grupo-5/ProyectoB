@@ -13,3 +13,20 @@
  *= require_tree .
  *= require_self
  */
+
+ .devise-container {
+    margin: auto;
+    width: 30%;
+    border: 3px solid goldenrod;
+    padding: 10px;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    text-align: center;
+    border-radius: 20px;
+    background-color: rgba(255, 187, 0, 0.205);
+ }
+
+div.actions{
+    margin-bottom: 25px;
+}
