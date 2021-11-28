@@ -47,7 +47,7 @@ const Room = (props) => {
         room: roomData,
         scheduleId,
       };
-      fetch("http://localhost:3000/reservations/", { 
+      fetch(`http://${window.location.host}/reservations`, { 
         method: "post",
         body: JSON.stringify(data)
       })
@@ -55,7 +55,7 @@ const Room = (props) => {
         .then((data) => window.location.href = data.redirect_url)
         .catch((error) => console.log(error))
     }
-  }
+  };
 
   return (
     <div className="room-hero">
@@ -76,7 +76,7 @@ const Room = (props) => {
           <p>SCREEN</p>
         </div>
       </div>
-      <button className="reserve-btn" onClick={makeReservation}>
+      <button id="reserve" className="reserve-btn" onClick={makeReservation}>
         Make reservation
       </button>
     </div>
