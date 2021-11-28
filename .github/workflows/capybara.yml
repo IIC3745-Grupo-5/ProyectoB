@@ -61,13 +61,13 @@ jobs:
       - name: Setup Database
         env:
           RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: postgres
+          DATABASE_HOST: localhost
+          DATABASE_USERNAME: postgres
         run: bin/rails db:create db:schema:load
 
       - name: Build and test with rspec
         env:
           RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: postgres
+          DATABASE_HOST: localhost
+          DATABASE_USERNAME: postgres
         run: bundle exec rspec spec
