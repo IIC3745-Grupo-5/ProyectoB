@@ -1,25 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Movies page', type: :system do
-  describe 'Click the link to the first movie' do
-    it 'loads the movies show path' do
-      sign_in
-      visit cinema_path(1)
-      sleep(1)
-      find("a[href='#{movie_path(1)}']").click
-      sleep(1)
-      expect(page).to have_current_path(movie_path(1))
-    end
 
-    it 'clicks the back button and goes to cinema show' do
-      sign_in
-      visit movie_path(1)
-      sleep(1)
-      click_link 'Back'
-      sleep(1)
-      expect(page).to have_current_path(cinema_path(1))
-    end
-  end
 
   describe 'Shows the right content' do
     it 'shows the correct movie title, image and three schedules' do

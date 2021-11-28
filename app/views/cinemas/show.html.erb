@@ -1,10 +1,34 @@
 <h1 class="title"><%= @cinema.name %></h1>
 <div class="movie-collection">
-  <% @movies.each do |movie| %>
-    <div class="movie">
-      <img src=<%= movie.photo %> class="movie-image">
-      <div class="movie-title-container">
-        <%= link_to movie.title.to_s, movie, class: "movie-title" %>
+  <% @movies_array.each do |mo| %>
+    <div class="single-movie-display">
+      <img src=<%= mo[:movie].photo %> class="single-image">
+      <p class="single-movie-title"><%= mo[:movie].title %></p>
+      <div class="schedules-container">
+        <div class="schedule">
+          <p class="inside-text text-one">Morning:</p>
+          <% mo[:morning_schedule].rooms.each do |room| %>
+            <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => mo[:morning_schedule].id), class: "inside-text text-two" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="schedules-container">
+        <div class="schedule">
+          <p class="inside-text text-one">Afternoon:</p>
+          <% mo[:afternoon_schedule].rooms.each do |room| %>
+            <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => mo[:afternoon_schedule].id), class: "inside-text text-two" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="schedules-container">
+        <div class="schedule">
+          <p class="inside-text text-one">Evening:</p>
+          <% mo[:evening_schedule].rooms.each do |room| %>
+            <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => mo[:evening_schedule].id), class: "inside-text text-two" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="movie-schedules">
       </div>
     </div>
   <% end %>
