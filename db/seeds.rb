@@ -8,6 +8,8 @@ room5 = Room.create(name: 'Sala 5', cinema: cinema)
 room6 = Room.create(name: 'Sala 6', cinema: cinema)
 room7 = Room.create(name: 'Sala 7', cinema: cinema)
 room8 = Room.create(name: 'Sala 8', cinema: cinema)
+puts cinema
+
 
 movie1 = Movie.create(
   title: 'Dune', 
