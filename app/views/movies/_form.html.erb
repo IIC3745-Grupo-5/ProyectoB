@@ -1,7 +1,7 @@
 <%= form_with(model: movie) do |form| %>
   <% if movie.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movies from being saved:</h2>
 
       <ul>
         <% movie.errors.each do |error| %>
@@ -22,8 +22,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :room_id %>
-    <%= form.text_field :room_id %>
+    <%= form.label :cinema %>
+    <%= form.text_field :cinema %>
   </div>
 
   <div class="actions">
