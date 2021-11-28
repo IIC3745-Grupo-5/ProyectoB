@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Home page', type: :system do
+describe 'Home page', type: :system do
   describe 'Home page content' do
     it 'shows the right content' do
       sign_in
