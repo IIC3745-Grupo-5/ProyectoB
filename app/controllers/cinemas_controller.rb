@@ -7,7 +7,21 @@ class CinemasController < ApplicationController
   end
 
   def show
-    @movies = @cinema.movies
+    @movies_array = []
+    movies = @cinema.movies
+    all_schedules = Schedule.all
+    movies.each do |movie|
+      schedules = all_schedules.select { |schedule| schedule.movie_id == movie.id }
+      morning_schedule = schedules.find { |schedule| schedule.time == "Morning" }
+      afternoon_schedule = schedules.find { |schedule| schedule.time == "Afternoon" }
+      evening_schedule = schedules.find { |schedule| schedule.time == "Evening" }
+      @movies_array << {
+        movie: movie,
+        morning_schedule: morning_schedule,
+        afternoon_schedule: afternoon_schedule,
+        evening_schedule: evening_schedule
+      }
+    end
   end
 
   private
