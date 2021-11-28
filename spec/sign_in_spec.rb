@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "User signs in", type: :system do
+RSpec.describe "User signs in", type: :system do
   scenario "valid with correct credentials" do
     visit root_path
     sleep(1)
