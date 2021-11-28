@@ -14,7 +14,11 @@ class MoviesController < ApplicationController
     params["cinema"] = @cinema
     @movie = Movie.create({title: params["title"] , photo: params["photo"], cinema: params["cinema"] })
     params[:movie_id] = @movie.id
-    rooms = [movie_params["roomMorning"], movie_params["roomAfternoon"], movie_params["roomNight"]]
+
+    rooms = movie_params["roomMorning"].gsub(/\s+/, "").split(";")
+    rooms.push(*movie_params["roomAfternoon"].gsub(/\s+/, "").split(";"))
+    rooms.push(*movie_params["roomNight"].gsub(/\s+/, "").split(";"))
+
     states = ["Morning","Afternoon","Evening"]
     flag = true
     for room in rooms do
@@ -26,25 +30,41 @@ class MoviesController < ApplicationController
         end  
       end
     end
-    @schedule = Schedule.create({time:"Morning" , movie_id: @movie.id})
-    @schedule.rooms.push()
-    @room = Room.find(params["roomMorning"])
-    @schedule.rooms.push(@room)
-    @schedule = Schedule.create({time:"Afternoon" , movie_id: @movie.id})
-    @schedule.rooms.push()
-    @room = Room.find(params["roomAfternoon"])
-    @schedule.rooms.push(@room)
-    @schedule = Schedule.create({time:"Evening" , movie_id: @movie.id})
-    @schedule.rooms.push()
-    @room = Room.find(params["roomNight"])
-    @schedule.rooms.push(@room)
+    
+    @schedule1 = Schedule.create({time:"Morning" , movie_id: @movie.id})
+    @schedule2 = Schedule.create({time:"Evening" , movie_id: @movie.id})
+    @schedule3 = Schedule.create({time:"Afternoon" , movie_id: @movie.id})
+
+    if params["roomMorning"] != "" 
+      
+      @room = Room.find(params["roomMorning"])
+      @schedule1.rooms.push(@room)
+      
+    end
+
+    if params["roomAfternoon"] != "" 
+      
+      @room = Room.find(params["roomAfternoon"])
+      @schedule2.rooms.push(@room)
+      
+
+    end
+
+    if params["roomNight"] != "" 
+      
+      @room = Room.find(params["roomNight"])
+      @schedule3.rooms.push(@room)
+      
+    end
+    @schedule2.save
+    @schedule1.save
+    @schedule3.save
+    
     respond_to do |format|
       if (@movie.save & flag)
-        format.html { redirect_to @movie, notice: "Schedule was successfully created." }
-        format.json { render :show, status: :created, location: @movie }
+        format.html { redirect_to cinemas_path, notice: "Schedule was successfully created." }
       else 
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json:@movie.errors , status: :unprocessable_entity }
       end
     end
     

@@ -5,21 +5,34 @@
   <p class="single-movie-title"><%= @movie.title %></p>
   <div class="schedules-container">
     <div class="schedule">
-      <p class="inside-text text-one">Morning:</p>
-      <% @morning_schedule.rooms.each do |room| %>
-        <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => @morning_schedule.id), class: "inside-text text-two" %>
+      <% if @morning_schedule.rooms.length > 0 %>
+        <p class="inside-text text-one">Morning:</p>
+        <% @morning_schedule.rooms.each do |room| %>
+          <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => @morning_schedule.id), class: "inside-text text-two" %>
+
+        <% end %>
+      <% else %>
+            <p class="inside-text text-two">None</p>
       <% end %>
     </div>
     <div class="schedule">
+    <% if @afternoon_schedule.rooms.length > 0 %>
       <p class="inside-text text-one">Afternoon:</p>
       <% @afternoon_schedule.rooms.each do |room| %>
         <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => @afternoon_schedule.id), class: "inside-text text-two" %>
       <% end %>
+    <% else %>
+      <p class="inside-text text-two">None</p>
+    <% end %>
     </div>
     <div class="schedule">
-      <p class="inside-text text-one">Evening:</p>
-      <% @evening_schedule.rooms.each do |room| %>
-        <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => @evening_schedule.id), class: "inside-text text-two" %>
+      <% if @evening_schedule.rooms.length > 0 %>
+        <p class="inside-text text-one">Evening:</p>
+        <% @evening_schedule.rooms.each do |room| %>
+          <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => @evening_schedule.id), class: "inside-text text-two" %>
+        <% end %>
+        <% else %>
+        <p class="inside-text text-two">None</p>
       <% end %>
     </div>
   </div>
