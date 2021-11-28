@@ -7,24 +7,36 @@
       <div class="schedules-container">
         <div class="schedule">
           <p class="inside-text text-one">Morning:</p>
-          <% mo[:morning_schedule].rooms.each do |room| %>
-            <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => mo[:morning_schedule].id), class: "inside-text text-two" %>
+          <% if mo[:morning_schedule].rooms.length > 0 %>
+            <% mo[:morning_schedule].rooms.each do |room| %>
+              <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => mo[:morning_schedule].id), class: "inside-text text-two" %>
+            <% end %>
+          <% else %>
+            <p class="inside-text text-two">None</p>
           <% end %>
         </div>
       </div>
       <div class="schedules-container">
         <div class="schedule">
           <p class="inside-text text-one">Afternoon:</p>
-          <% mo[:afternoon_schedule].rooms.each do |room| %>
-            <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => mo[:afternoon_schedule].id), class: "inside-text text-two" %>
+          <% if mo[:afternoon_schedule].rooms.length > 0 %>
+            <% mo[:afternoon_schedule].rooms.each do |room| %>
+              <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => mo[:afternoon_schedule].id), class: "inside-text text-two" %>
+            <% end %>
+          <% else %>
+            <p class="inside-text text-two">None</p>
           <% end %>
         </div>
       </div>
       <div class="schedules-container">
         <div class="schedule">
           <p class="inside-text text-one">Evening:</p>
-          <% mo[:evening_schedule].rooms.each do |room| %>
-            <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => mo[:evening_schedule].id), class: "inside-text text-two" %>
+          <% if mo[:evening_schedule].rooms.length > 0 %>
+            <% mo[:evening_schedule].rooms.each do |room| %>
+              <%= link_to room.name.to_s, room_path(:id => room.id, :scheduleId => mo[:evening_schedule].id), class: "inside-text text-two" %>
+            <% end %>
+          <% else %>
+            <p class="inside-text text-two">None</p>
           <% end %>
         </div>
       </div>

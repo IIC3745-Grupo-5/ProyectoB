@@ -45,7 +45,7 @@ RSpec.describe 'Home page', type: :system do
       sign_in
       visit cinema_path(1)
       sleep(1)
-      find("a[href='#{room_path(1)}?scheduleId=1']").click
+      find("a[href='#{room_path(1)}?scheduleId=2']").click
       expect(page).to have_button 'Make reservation'
     end
   end
