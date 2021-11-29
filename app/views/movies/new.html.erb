@@ -1,5 +1,7 @@
-<h1>New Movie</h1>
+<h1 class='movie-create-title'>New Movie</h1>
 
 <%= render 'form', movie: @movie %>
 
-<%= link_to 'Back', cinema_path(1) %>
+<div class='flex'>
+  <%= link_to 'Back', cinema_path(1), class: 'back-btn center' %>
+</div>

@@ -11,36 +11,39 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, placeholder: 'The title of your movie' %>
-  </div>
 
-  <div class="field">
-    <%= form.label :photo %>
-    <%= form.text_field :photo, placeholder: 'An image url' %>
-  </div>
-
-  <div class="field">
-    <%= form.hidden_field :cinema, value: @cinema.name %>
-  </div>
-
-  <div class="field">
-    <%= form.label "Morning schedules" %>
-    <%= form.text_field :roomMorning, placeholder: "Possible rooms are #{@morning_placeholders}" %>
-  </div>
-  
+  <div class='create-movie'>
     <div class="field">
-    <%= form.label "Afternoon schedules" %>
-    <%= form.text_field :roomAfternoon, placeholder: "Possible rooms are #{@afternoon_placeholders}" %>
-  </div>
-  
-    <div class="field">
-    <%= form.label "Evening schedules" %>
-    <%= form.text_field :roomNight, placeholder: "Possible rooms are #{@evening_placeholders}" %>
-  </div>
+      <%= form.label :title, class: "label" %>
+      <%= form.text_field :title, placeholder: 'The title of your movie', class: "text-field" %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div class="field">
+      <%= form.label :photo, class: "label" %>
+      <%= form.text_field :photo, placeholder: 'An image url', class: "text-field" %>
+    </div>
+
+    <div class="">
+      <%= form.hidden_field :cinema, value: @cinema.name %>
+    </div>
+
+    <div class="field">
+      <%= form.label "Morning schedules", class: "label" %>
+      <%= form.text_field :roomMorning, placeholder: "Possible rooms are #{@morning_placeholders}", class: "text-field" %>
+    </div>
+    
+    <div class="field">
+      <%= form.label "Afternoon schedules", class: "label" %>
+      <%= form.text_field :roomAfternoon, placeholder: "Possible rooms are #{@afternoon_placeholders}", class: "text-field" %>
+    </div>
+    
+    <div class="field">
+      <%= form.label "Evening schedules", class: "label" %>
+      <%= form.text_field :roomNight, placeholder: "Possible rooms are #{@evening_placeholders}", class: "text-field" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class: "reserve-btn" %>
+    </div>
   </div>
 <% end %>
