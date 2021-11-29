@@ -1,4 +1,4 @@
-# Página: https://afternoon-chamber-65383.herokuapp.com/
+# Página: https://afternoon-chamber-65383.herokuapp.com
 
 ## Commands
 
@@ -12,8 +12,6 @@ You may need a .env file if the default values for the database configuration do
 ```rb
 DATABASE_USERNAME=MyUsername
 DATABASE_PASSWORD=MyPassword
-DATABASE_HOST=MyHost
-DATABASE_PORT=MyPort
 ```
 
 To run the application, run the following commands (start postgresql first):
@@ -49,3 +47,7 @@ To undo a migration:
 ```rb
 rails db:rollback
 ```
+
+The app has a previously created user whose credentials are:
+- __Email__: `djoe@uc.cl`
+- __Password__: `password`
