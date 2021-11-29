@@ -47,7 +47,7 @@ const Room = (props) => {
         room: roomData,
         scheduleId,
       };
-      fetch(`http://${window.location.host}/reservations`, { 
+      fetch(`${window.location.protocol}//${window.location.host}/reservations`, { 
         method: "post",
         body: JSON.stringify(data)
       })
