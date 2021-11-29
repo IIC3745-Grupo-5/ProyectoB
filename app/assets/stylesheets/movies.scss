@@ -112,3 +112,30 @@
 .text-two {
   text-decoration: none;
 }
+
+.movie-create-title {
+  text-align: center;
+}
+
+.create-movie {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  .field {
+    margin: 1rem;
+    width: 50%;
+    align-self: center;
+    .text-field {
+      padding: 12px 20px;
+      box-sizing: border-box;
+      width: 100%;
+      margin: 8px 0;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
