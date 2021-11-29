@@ -5,66 +5,87 @@ class MoviesController < ApplicationController
 
   def new
     @movie = Movie.new
+    @cinema = Cinema.find(params[:cinema_id])
   end
 
   def create
-    params = movie_params
-    @schedules2 = Schedule.all 
-    @cinema = Cinema.find_by(name: params["cinema"])
-    params["cinema"] = @cinema
-    @movie = Movie.create({title: params["title"] , photo: params["photo"], cinema: params["cinema"] })
-    params[:movie_id] = @movie.id
+    @cinema = Cinema.find_by(params[:cinema])
+    schedules = Schedule.all
 
-    rooms = movie_params["roomMorning"].gsub(/\s+/, "").split(";")
-    rooms.push(*movie_params["roomAfternoon"].gsub(/\s+/, "").split(";"))
-    rooms.push(*movie_params["roomNight"].gsub(/\s+/, "").split(";"))
+    morning_schedules = schedules.select { |schedule| schedule.time == "Morning" }
+    afternoon_schedules = schedules.select { |schedule| schedule.time == "Afternoon" }
+    evening_schedules = schedules.select { |schedule| schedule.time == "Evening" }
 
-    states = ["Morning","Afternoon","Evening"]
-    flag = true
-    for room in rooms do
-      for schedule in @schedules2 do
-        for possibleRoom in schedule.rooms do
-          if (possibleRoom.id === room.to_i and states[rooms.index(room)] == schedule.time) then
-            flag = false
-          end 
-        end  
+    morning_possible_rooms = [*1..8]
+    morning_schedules.each do |schedule|
+      schedule.rooms.each do |room|
+        morning_possible_rooms.delete(room.id)
       end
     end
-    
-    @schedule1 = Schedule.create({time:"Morning" , movie_id: @movie.id})
-    @schedule2 = Schedule.create({time:"Evening" , movie_id: @movie.id})
-    @schedule3 = Schedule.create({time:"Afternoon" , movie_id: @movie.id})
-
-    if params["roomMorning"] != "" 
-      
-      @room = Room.find(params["roomMorning"])
-      @schedule1.rooms.push(@room)
-      
+    afternoon_possible_rooms = [*1..8]
+    afternoon_schedules.each do |schedule|
+      schedule.rooms.each do |room|
+        afternoon_possible_rooms.delete(room.id)
+      end
+    end
+    evening_possible_rooms = [*1..8]
+    evening_schedules.each do |schedule|
+      schedule.rooms.each do |room|
+        evening_possible_rooms.delete(room.id)
+      end
     end
 
-    if params["roomAfternoon"] != "" 
-      
-      @room = Room.find(params["roomAfternoon"])
-      @schedule2.rooms.push(@room)
-      
+    morning_rooms = movie_params[:roomMorning].gsub(/\s+/, "").split(";").map(&:to_i)
+    afternoon_rooms = movie_params[:roomAfternoon].gsub(/\s+/, "").split(";").map(&:to_i)
+    evening_rooms = movie_params[:roomNight].gsub(/\s+/, "").split(";").map(&:to_i)
 
+    flag = true
+    morning_rooms.each do |room|
+      if !morning_possible_rooms.include?(room)
+        flag = false
+      end
+    end
+    afternoon_rooms.each do |room|
+      if !afternoon_possible_rooms.include?(room)
+        flag = false
+      end
+    end
+    evening_rooms.each do |room|
+      if !evening_possible_rooms.include?(room)
+        flag = false
+      end
     end
 
-    if params["roomNight"] != "" 
-      
-      @room = Room.find(params["roomNight"])
-      @schedule3.rooms.push(@room)
-      
+    @movie = Movie.create({title: params[:title] , photo: params[:photo], cinema: @cinema })
+    @schedule1 = Schedule.create({ time: "Morning", movie_id: @movie.id })
+    @schedule2 = Schedule.create({ time: "Evening", movie_id: @movie.id })
+    @schedule3 = Schedule.create({ time: "Afternoon", movie_id: @movie.id })
+
+    morning_rooms.each do |room|
+      found_room = Room.find(room)
+      @schedule1.rooms.push(found_room)
+    end
+    afternoon_rooms.each do |room|
+      found_room = Room.find(room)
+      @schedule2.rooms.push(found_room)
+    end
+    evening_rooms.each do |room|
+      found_room = Room.find(room)
+      @schedule3.rooms.push(found_room)
     end
     @schedule2.save
     @schedule1.save
     @schedule3.save
     
     respond_to do |format|
-      if (@movie.save & flag)
-        format.html { redirect_to cinemas_path, notice: "Schedule was successfully created." }
-      else 
-        format.html { render :new, status: :unprocessable_entity }
+      if (flag)
+        format.html { redirect_to cinemas_path, notice: "Movie was successfully created." }
+      else
+        @schedule2.destroy
+        @schedule1.destroy
+        @schedule3.destroy
+        @movie.destroy
+        format.html { redirect_to cinema_path(@cinema.id), notice: "There was an error creating a movie, a room was already occupied" }
       end
     end
     

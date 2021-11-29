@@ -22,22 +22,21 @@
   </div>
 
   <div class="field">
-    <%= form.label :cinema %>
-    <%= form.text_field :cinema %>
+    <%= form.hidden_field :cinema, value: @cinema.name %>
   </div>
 
   <div class="field">
-    <%= form.label "Sala de la mañana" %>
+    <%= form.label "Morning schedules" %>
     <%= form.text_field :roomMorning %>
   </div>
   
     <div class="field">
-    <%= form.label "Sala de la tarde" %>
+    <%= form.label "Afternoon schedules" %>
     <%= form.text_field :roomAfternoon%>
   </div>
   
     <div class="field">
-    <%= form.label "Sala de la Noche" %>
+    <%= form.label "Evening schedules" %>
     <%= form.text_field :roomNight %>
   </div>
 
