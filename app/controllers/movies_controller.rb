@@ -6,12 +6,38 @@ class MoviesController < ApplicationController
   def new
     @movie = Movie.new
     @cinema = Cinema.find(params[:cinema_id])
+
+    schedules = Schedule.all
+    morning_schedules = schedules.select { |schedule| schedule.time == "Morning" }
+    afternoon_schedules = schedules.select { |schedule| schedule.time == "Afternoon" }
+    evening_schedules = schedules.select { |schedule| schedule.time == "Evening" }
+
+    morning_possible_rooms = [*1..8]
+    morning_schedules.each do |schedule|
+      schedule.rooms.each do |room|
+        morning_possible_rooms.delete(room.id)
+      end
+    end
+    afternoon_possible_rooms = [*1..8]
+    afternoon_schedules.each do |schedule|
+      schedule.rooms.each do |room|
+        afternoon_possible_rooms.delete(room.id)
+      end
+    end
+    evening_possible_rooms = [*1..8]
+    evening_schedules.each do |schedule|
+      schedule.rooms.each do |room|
+        evening_possible_rooms.delete(room.id)
+      end
+    end
+    @morning_placeholders = morning_possible_rooms.join(';')
+    @afternoon_placeholders = afternoon_possible_rooms.join(';')
+    @evening_placeholders = evening_possible_rooms.join(';')
   end
 
   def create
     @cinema = Cinema.find_by(params[:cinema])
     schedules = Schedule.all
-
     morning_schedules = schedules.select { |schedule| schedule.time == "Morning" }
     afternoon_schedules = schedules.select { |schedule| schedule.time == "Afternoon" }
     evening_schedules = schedules.select { |schedule| schedule.time == "Evening" }
@@ -56,7 +82,7 @@ class MoviesController < ApplicationController
       end
     end
 
-    @movie = Movie.create({title: params[:title] , photo: params[:photo], cinema: @cinema })
+    @movie = Movie.create({ title: movie_params[:title] , photo: movie_params[:photo], cinema: @cinema })
     @schedule1 = Schedule.create({ time: "Morning", movie_id: @movie.id })
     @schedule2 = Schedule.create({ time: "Evening", movie_id: @movie.id })
     @schedule3 = Schedule.create({ time: "Afternoon", movie_id: @movie.id })
@@ -79,7 +105,7 @@ class MoviesController < ApplicationController
     
     respond_to do |format|
       if (flag)
-        format.html { redirect_to cinemas_path, notice: "Movie was successfully created." }
+        format.html { redirect_to cinema_path(@cinema.id), notice: "Movie was successfully created." }
       else
         @schedule2.destroy
         @schedule1.destroy

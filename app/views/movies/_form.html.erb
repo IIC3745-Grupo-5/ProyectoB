@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, placeholder: 'The title of your movie' %>
   </div>
 
   <div class="field">
     <%= form.label :photo %>
-    <%= form.text_field :photo %>
+    <%= form.text_field :photo, placeholder: 'An image url' %>
   </div>
 
   <div class="field">
@@ -27,17 +27,17 @@
 
   <div class="field">
     <%= form.label "Morning schedules" %>
-    <%= form.text_field :roomMorning %>
+    <%= form.text_field :roomMorning, placeholder: "Possible rooms are #{@morning_placeholders}" %>
   </div>
   
     <div class="field">
     <%= form.label "Afternoon schedules" %>
-    <%= form.text_field :roomAfternoon%>
+    <%= form.text_field :roomAfternoon, placeholder: "Possible rooms are #{@afternoon_placeholders}" %>
   </div>
   
     <div class="field">
     <%= form.label "Evening schedules" %>
-    <%= form.text_field :roomNight %>
+    <%= form.text_field :roomNight, placeholder: "Possible rooms are #{@evening_placeholders}" %>
   </div>
 
   <div class="actions">

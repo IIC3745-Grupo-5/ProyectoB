@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Movie creation page', type: :system do
   describe 'Create a movie with valid fields' do
-    it 'clicks the cinema link and shows the movies' do
+    it 'should create the movie correctly' do
       sign_in
       visit cinemas_path
       click_link 'DCCinema'
@@ -15,12 +15,25 @@ describe 'Movie creation page', type: :system do
       fill_in 'movie_roomNight', with: ''
       sleep(0.5)
       click_button 'Create Movie'
-      click_link 'DCCinema'
       expect(page).to have_content 'Spiderman, No Way Home'
     end
   end
 
-  describe 'Create a movie with invalid fields' do
-
+  describe 'Create a movie with an occupied room' do
+    it 'should not create the movie and redirect to the movies list' do
+      sign_in
+      visit cinemas_path
+      click_link 'DCCinema'
+      click_link 'New Movie'
+      sleep(0.5)
+      fill_in 'movie_title', with: 'The minions'
+      fill_in 'movie_photo', with: 'https://cdn.europosters.eu/image/1300/posters/despicable-me-many-minions-i23817.jpg'
+      fill_in 'movie_roomMorning', with: '1'
+      fill_in 'movie_roomAfternoon', with: '5'
+      fill_in 'movie_roomNight', with: ''
+      sleep(0.5)
+      click_button 'Create Movie'
+      expect(page).not_to have_content 'The minions'
+    end
   end
 end
