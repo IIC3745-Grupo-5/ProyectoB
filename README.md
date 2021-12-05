@@ -49,5 +49,5 @@ rails db:rollback
 ```
 
 The app has a previously created user whose credentials are:
-- __Email__: `djoe@uc.cl`
+- __Email__: `jdoe@uc.cl`
 - __Password__: `password`
